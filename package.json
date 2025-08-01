@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fal-ai/client": "^1.6.1",
+    "@picovoice/picovoice-react": "^3.0.3",
+    "@picovoice/rhino-react": "^3.0.3",
     "lucide-react": "^0.535.0",
     "next": "15.4.5",
     "react": "19.1.0",
