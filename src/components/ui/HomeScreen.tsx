@@ -2,6 +2,7 @@
 
 import { EmergencyButton } from '@/components/EmergencyButton';
 import { DisclaimerModal } from '@/components/DisclaimerModal';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { Heart, Volume2, VolumeX } from 'lucide-react';
 
 interface HomeScreenProps {
@@ -31,6 +32,10 @@ export const HomeScreen = ({
 }: HomeScreenProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center p-4 relative">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      
       <div className="mb-8 text-center">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Heart className="w-8 h-8 text-red-500" />
@@ -71,7 +76,7 @@ export const HomeScreen = ({
       </div>
 
       {error && (
-        <div className="absolute top-5 left-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md mx-auto" role="alert">
+        <div className="absolute top-20 left-4 right-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 px-4 py-3 rounded max-w-md mx-auto" role="alert">
           <p className="text-sm">{error}</p>
           <button onClick={onDismissError} className="text-xs underline mt-1 hover:no-underline">
             Dismiss

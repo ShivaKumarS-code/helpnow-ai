@@ -42,22 +42,22 @@ export const GuideCard: React.FC<GuideCardProps> = ({
   };
 
   return (
-    <div className={`bg-white rounded-xl shadow-lg p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
       <div className="flex items-start gap-4 mb-4">
         {getIcon()}
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-sm font-semibold text-gray-500">
+            <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">
               STEP {step} OF {totalSteps}
             </span>
-            <div className="flex-1 bg-gray-200 rounded-full h-2">
+            <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
               <div 
                 className="bg-red-500 h-2 rounded-full transition-all duration-500"
                 style={{ width: `${(step / totalSteps) * 100}%` }}
               />
             </div>
           </div>
-          <p className="text-lg text-gray-800 leading-relaxed">{instruction}</p>
+          <p className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed">{instruction}</p>
         </div>
       </div>
       
