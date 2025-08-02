@@ -48,6 +48,7 @@ interface GuidanceScreenProps {
   audioEnabled: boolean;
   audioState: 'idle' | 'playing' | 'paused';
   onNextStep: () => void;
+  onPreviousStep: () => void;
   onStartOver: () => void;
   onToggleAudio: () => void;
   onPlayAudio: (instruction: string) => void;
@@ -60,6 +61,7 @@ export const GuidanceScreen = ({
   audioEnabled,
   audioState,
   onNextStep,
+  onPreviousStep,
   onStartOver,
   onToggleAudio,
   onPlayAudio,
@@ -103,6 +105,8 @@ export const GuidanceScreen = ({
             visualUrl={currentStepData.visualUrl}
             alternativeUrls={currentStepData.alternativeUrls}
             onNextStep={onNextStep}
+            onPreviousStep={onPreviousStep}
+            isFirstStep={currentStep === 0}
             isLastStep={currentStep === scenario.steps.length - 1}
           />
           {audioEnabled && (

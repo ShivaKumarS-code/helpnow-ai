@@ -1,37 +1,50 @@
 'use client';
 
+import { useState } from 'react';
 import { EmergencyButton } from '@/components/EmergencyButton';
 import { DisclaimerModal } from '@/components/DisclaimerModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Heart, Volume2, VolumeX } from 'lucide-react';
+import { Heart, Info } from 'lucide-react';
+import { AboutModal } from '@/components/AboutModal';
+import { TextInput } from '@/components/TextInput';
 
 interface HomeScreenProps {
   appState: 'idle' | 'listening' | 'processing';
   error: string | null;
   finalTranscript: string;
-  audioEnabled: boolean;
   onEmergencyClick: () => void;
-  onToggleAudio: () => void;
   onShowDisclaimer: () => void;
   onDismissError: () => void;
   isDisclaimerVisible: boolean;
   onCloseDisclaimer: () => void;
+  onTextInputSubmit: (text: string) => void;
 }
 
 export const HomeScreen = ({
   appState,
   error,
   finalTranscript,
-  audioEnabled,
   onEmergencyClick,
-  onToggleAudio,
   onShowDisclaimer,
   onDismissError,
   isDisclaimerVisible,
   onCloseDisclaimer,
+  onTextInputSubmit,
 }: HomeScreenProps) => {
+  const [isAboutModalOpen, setAboutModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center p-4 relative">
+      <div className="absolute top-4 left-4">
+        <button
+          onClick={() => setAboutModalOpen(true)}
+          className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        >
+          <Info className="w-5 h-5" />
+          <span className="font-medium">About</span>
+        </button>
+      </div>
+
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
@@ -44,22 +57,15 @@ export const HomeScreen = ({
         <p className="text-gray-600 font-medium">Your On-the-Spot Emergency Guide</p>
       </div>
 
-      <div className="mb-4">
-        <button
-          onClick={onToggleAudio}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-            audioEnabled
-              ? 'bg-green-100 text-green-700 hover:bg-green-200'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-          }`}
-        >
-          {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          Audio {audioEnabled ? 'On' : 'Off'}
-        </button>
-      </div>
-
       <div className="mb-8">
         <EmergencyButton state={appState} onClick={onEmergencyClick} />
+      </div>
+
+      <div className="w-full max-w-md mb-4">
+        <TextInput
+          onSubmit={onTextInputSubmit}
+          disabled={appState === 'listening' || appState === 'processing'}
+        />
       </div>
 
       <div className="text-center mb-8 h-12">
@@ -91,6 +97,7 @@ export const HomeScreen = ({
       </div>
 
       <DisclaimerModal isOpen={isDisclaimerVisible} onClose={onCloseDisclaimer} />
+      <AboutModal isOpen={isAboutModalOpen} onClose={() => setAboutModalOpen(false)} />
     </div>
   );
 };

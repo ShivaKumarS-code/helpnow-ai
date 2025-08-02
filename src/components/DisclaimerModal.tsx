@@ -11,23 +11,23 @@ export const DisclaimerModal: React.FC<DisclaimerModalProps> = ({ isOpen, onClos
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+    <div className="modal-overlay p-4">
+      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[80vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-6 h-6 text-yellow-500" />
-              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">Important Disclaimer</h2>
+              <h2 className="text-xl font-bold text-gray-800">Important Disclaimer</h2>
             </div>
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+              className="text-gray-500 hover:text-gray-700 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
           </div>
           
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+          <div className="space-y-4 text-gray-700">
             <p className="font-semibold text-red-600">
               This app is for informational purposes only and is not a substitute for professional medical advice.
             </p>
@@ -51,7 +51,7 @@ export const DisclaimerModal: React.FC<DisclaimerModalProps> = ({ isOpen, onClos
           
           <button
             onClick={onClose}
-            className="w-full mt-6 bg-gray-800 hover:bg-gray-900 dark:bg-gray-600 dark:hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+            className="w-full mt-6 bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
           >
             I Understand
           </button>

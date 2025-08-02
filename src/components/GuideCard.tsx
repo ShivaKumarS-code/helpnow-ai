@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, AlertTriangle, ArrowRight, Info, ImageOff } from 'lucide-react';
+import { CheckCircle, AlertTriangle, ArrowRight, Info, ImageOff, ArrowLeft } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface GuideCardProps {
@@ -11,7 +11,9 @@ interface GuideCardProps {
   visualUrl?: string;
   alternativeUrls?: string[];
   onNextStep: () => void;
+  onPreviousStep: () => void;
   isLastStep?: boolean;
+  isFirstStep?: boolean;
 }
 
 export const GuideCard: React.FC<GuideCardProps> = ({
@@ -22,7 +24,9 @@ export const GuideCard: React.FC<GuideCardProps> = ({
   visualUrl,
   alternativeUrls = [],
   onNextStep,
-  isLastStep = false
+  onPreviousStep,
+  isLastStep = false,
+  isFirstStep = false
 }) => {
   const [imageError, setImageError] = useState(false);
   const [currentUrlIndex, setCurrentUrlIndex] = useState(0);
@@ -145,14 +149,27 @@ export const GuideCard: React.FC<GuideCardProps> = ({
         </div>
       </div>
       
-      <button
-        onClick={onNextStep}
-        className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-      >
-        {isLastStep ? 'COMPLETE GUIDE' : 'NEXT STEP'}
-        <ArrowRight className="w-5 h-5" />
-      </button>
+      <div className="flex items-center justify-between gap-2 mt-4">
+        <button
+          onClick={onPreviousStep}
+          disabled={isFirstStep}
+          className="w-1/3 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          PREVIOUS
+        </button>
+        <button
+          onClick={onNextStep}
+          className="w-2/3 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+        >
+          {isLastStep ? 'COMPLETE GUIDE' : 'NEXT STEP'}
+          <ArrowRight className="w-5 h-5" />
+        </button>
+      </div>
     </div>
   );
 };
+
+
+
 

@@ -35,6 +35,12 @@ export default function Page() {
     setFinalTranscript(transcript);
   }, []);
 
+  const handleTextInputSubmit = useCallback((text: string) => {
+    if (text.trim()) {
+      setFinalTranscript(text.trim());
+    }
+  }, []);
+
   const handleSpeechError = useCallback((errorMsg: string) => {
     setError(errorMsg);
     setAppState('idle');
@@ -139,6 +145,18 @@ export default function Page() {
     }
   }, [currentScenario, currentStep, audioEnabled, playAudio, stopAudio]);
 
+  const handlePreviousStep = useCallback(() => {
+    if (!currentScenario) return;
+    stopAudio();
+    if (currentStep > 0) {
+      const prevStep = currentStep - 1;
+      setCurrentStep(prevStep);
+      if (audioEnabled) {
+        setTimeout(() => playAudio(currentScenario.steps[prevStep].instruction), 300);
+      }
+    }
+  }, [currentScenario, currentStep, audioEnabled, playAudio, stopAudio]);
+
   const handleStartOver = useCallback(() => {
     stopAudio();
     setAppState('idle');
@@ -156,6 +174,7 @@ export default function Page() {
         audioEnabled={audioEnabled}
         audioState={audioState}
         onNextStep={handleNextStep}
+        onPreviousStep={handlePreviousStep}
         onStartOver={handleStartOver}
         onToggleAudio={() => setAudioEnabled(prev => !prev)}
         onPlayAudio={playAudio}
@@ -169,13 +188,12 @@ export default function Page() {
       appState={appState === 'idle' ? 'idle' : isListening ? 'listening' : 'processing'}
       error={error}
       finalTranscript={finalTranscript}
-      audioEnabled={audioEnabled}
       onEmergencyClick={handleEmergencyButtonClick}
-      onToggleAudio={() => setAudioEnabled(prev => !prev)}
       onShowDisclaimer={() => setShowDisclaimer(true)}
       onDismissError={() => setError(null)}
       isDisclaimerVisible={showDisclaimer}
       onCloseDisclaimer={() => setShowDisclaimer(false)}
+      onTextInputSubmit={handleTextInputSubmit}
     />
   );
 }

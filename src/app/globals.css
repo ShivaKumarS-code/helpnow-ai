@@ -74,6 +74,20 @@ button:focus-visible {
   }
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Modern dropdown animations */
 @keyframes fade-in {
   from {
@@ -169,4 +183,35 @@ button:focus-visible {
 
 [data-theme="dark"] .bg-gradient-to-br.from-gray-50.to-gray-100 {
   background: linear-gradient(to bottom right, #1f2937, #111827);
+}
+
+[data-theme="light"] .text-gray-800 {
+  color: #1f2937 !important; /* Dark text for light mode */
+}
+
+[data-theme="light"] .text-gray-500 {
+  color: #6b7280 !important; /* Medium gray for light mode */
+}
+
+[data-theme="light"] .text-gray-400 {
+  color: #9ca3af !important; /* Light gray for light mode */
+}
+
+.themed-input {
+  background-color: var(--background);
+  color: var(--foreground);
+  border-color: #D1D5DB;
+}
+
+[data-theme="dark"] .themed-input {
+  background-color: #374151;
+  border-color: #4B5563;
+}
+
+.themed-input::placeholder {
+  color: #9CA3AF;
+}
+
+[data-theme="dark"] .themed-input::placeholder {
+  color: #9CA3AF;
 }
