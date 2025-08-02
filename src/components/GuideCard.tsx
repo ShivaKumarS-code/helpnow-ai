@@ -51,7 +51,7 @@ export const GuideCard: React.FC<GuideCardProps> = ({
       case 'action':
         return <ArrowRight className="w-8 h-8 text-blue-500" />;
       case 'info':
-        return <Info className="w-8 h-8 text-gray-500" />;
+        return <Info className="w-8 h-8 text-gray-100" />;
       default:
         return <CheckCircle className="w-8 h-8 text-green-500" />;
     }
@@ -96,7 +96,7 @@ export const GuideCard: React.FC<GuideCardProps> = ({
   const currentImageSrc = allImageUrls[currentUrlIndex];
 
   return (
-    <div className={`bg-white rounded-xl shadow-lg p-4 sm:p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
+    <div className={`bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
       
       {/* --- RESTORED: Visual Display Area --- */}
       {allImageUrls.length > 0 ? (
@@ -135,17 +135,17 @@ export const GuideCard: React.FC<GuideCardProps> = ({
         {getIcon()}
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-              STEP {step} OF {totalSteps}
-            </span>
-            <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-              <div 
-                className="bg-red-500 h-2 rounded-full transition-all duration-500"
-                style={{ width: `${(step / totalSteps) * 100}%` }}
-              />
-            </div>
+        <span className="text-sm font-semibold text-white">
+          STEP {step} OF {totalSteps}
+        </span>
+        <div className="flex-1 bg-gray-200 dark:bg-gray-400 rounded-full h-2">
+          <div 
+            className="bg-red-500 h-2 rounded-full transition-all duration-500"
+            style={{ width: `${(step / totalSteps) * 100}%` }}
+          />
+        </div>
           </div>
-          <p className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed">{instruction}</p>
+          <p className="text-lg text-gray-100 dark:text-gray-200 leading-relaxed">{instruction}</p>
         </div>
       </div>
       
@@ -153,7 +153,7 @@ export const GuideCard: React.FC<GuideCardProps> = ({
         <button
           onClick={onPreviousStep}
           disabled={isFirstStep}
-          className="w-1/3 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="w-1/3 bg-gray-700 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-700 disabled:cursor-not-allowed"
         >
           <ArrowLeft className="w-5 h-5" />
           PREVIOUS
