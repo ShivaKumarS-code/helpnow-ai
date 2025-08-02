@@ -13,7 +13,7 @@ interface AudioControlsProps {
 }
 
 const AudioControls = ({ instruction, audioState, onPlay, onStop }: AudioControlsProps) => (
-  <div className="flex items-center justify-center gap-2 mt-4 p-2 bg-gray-800 dark:bg-gray-800 rounded-lg">
+  <div className="flex items-center justify-center gap-2 mt-4 p-2 rounded-lg">
     <button
       onClick={onPlay}
       disabled={audioState === 'playing'}
