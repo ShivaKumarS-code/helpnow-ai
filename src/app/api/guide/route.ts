@@ -3,6 +3,16 @@ import { NextResponse } from 'next/server';
 // API endpoints
 const CEREBRAS_API_ENDPOINT = 'https://api.cerebras.ai/v1/chat/completions';
 
+// Helper function to generate image URLs
+function generateImageUrl(instruction: string, index: number): string {
+  // Create a simple, clear prompt for first aid illustrations
+  const imagePrompt = `first aid ${instruction.split(' ').slice(0, 8).join(' ')} medical diagram illustration`;
+  const encodedPrompt = encodeURIComponent(imagePrompt);
+  
+  // Use the correct Pollinations.ai API format
+  return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=400&height=300&nologo=true&seed=${Date.now() + index}`;
+}
+
 // This is the main handler for POST requests to /api/guide
 export async function POST(request: Request) {
   try {
@@ -68,6 +78,30 @@ export async function POST(request: Request) {
       throw new Error("The AI returned an invalid response format.");
     }
     
+    // --- FIXED: Ensure image URLs are definitely added to each step ---
+    if (scenario.steps && Array.isArray(scenario.steps)) {
+        scenario.steps = scenario.steps.map((step: any, index: number) => {
+            // Generate image URL
+            const visualUrl = generateImageUrl(step.instruction, index);
+            
+            // Alternative URLs as fallbacks
+            const alternativeUrls = [
+                `https://image.pollinations.ai/prompt/${encodeURIComponent('first aid medical diagram')}?width=400&height=300&nologo=true`,
+                `https://via.placeholder.com/400x300/f8f9fa/6c757d?text=${encodeURIComponent('First Aid Step ' + (index + 1))}`
+            ];
+            
+            console.log(`Generated image URL for step ${index + 1}:`, visualUrl); // Debug log
+            
+            return { 
+                ...step, 
+                visualUrl,
+                alternativeUrls
+            };
+        });
+    }
+
+    console.log('Final scenario with image URLs:', JSON.stringify(scenario, null, 2)); // Debug log
+
     // 5. Return the structured JSON response to the frontend
     return NextResponse.json(scenario);
 

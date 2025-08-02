@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "HelpNow Ai",
-  description: "Get instant, AI-powered voice guidance for first aid emergencies.",
+  description: "Don't Panic. Just Say it. HelpNow Ai Listens.",
 };
 
 export const viewport = {
@@ -29,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+          <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=2" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

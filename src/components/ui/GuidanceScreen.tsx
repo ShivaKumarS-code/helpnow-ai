@@ -95,6 +95,8 @@ export const GuidanceScreen = ({
             totalSteps={scenario.steps.length}
             instruction={currentStepData.instruction}
             type={currentStepData.type}
+            visualUrl={currentStepData.visualUrl}
+            alternativeUrls={currentStepData.alternativeUrls}
             onNextStep={onNextStep}
             isLastStep={currentStep === scenario.steps.length - 1}
           />

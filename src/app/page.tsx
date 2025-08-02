@@ -9,6 +9,17 @@ import { type EmergencyScenario } from '@/utils/emergencyScenarios';
 
 type AppState = 'idle' | 'listening' | 'processing' | 'guidance';
 
+// Define the actual API response type
+interface ApiEmergencyResponse {
+  title: string;
+  steps: Array<{
+    instruction: string;
+    type: 'warning' | 'action' | 'info';
+    visualUrl?: string;
+    alternativeUrls?: string[];
+  }>;
+}
+
 export default function Page() {
   const [appState, setAppState] = useState<AppState>('idle');
   const [finalTranscript, setFinalTranscript] = useState<string>('');
@@ -60,7 +71,32 @@ export default function Page() {
           throw new Error(errData.error || 'Failed to get a response from the AI.');
         }
 
-        const scenario: EmergencyScenario = await response.json();
+        // FIX: Get the raw response first, don't cast it immediately
+        const apiResponse: ApiEmergencyResponse = await response.json();
+        
+        // Debug logging to see what we actually got
+        console.log('Raw API Response:', apiResponse);
+        console.log('First step visualUrl:', apiResponse.steps?.[0]?.visualUrl);
+        console.log('First step alternativeUrls:', apiResponse.steps?.[0]?.alternativeUrls);
+        
+        // FIX: Transform the API response to match your EmergencyScenario interface
+        // while preserving the image URLs
+        const scenario: EmergencyScenario = {
+          id: 'api-generated', // Add a default ID since API doesn't provide one
+          title: apiResponse.title,
+          steps: apiResponse.steps.map((step, index) => ({
+            id: index + 1, // Add IDs since API doesn't provide them
+            instruction: step.instruction,
+            type: step.type,
+            // IMPORTANT: Preserve the image URLs from the API response
+            visualUrl: step.visualUrl,
+            alternativeUrls: step.alternativeUrls || []
+          }))
+        };
+
+        console.log('Transformed scenario:', scenario);
+        console.log('First step after transform:', scenario.steps[0]);
+
         setCurrentScenario(scenario);
         setCurrentStep(0);
         setAppState('guidance');
@@ -69,6 +105,7 @@ export default function Page() {
           setTimeout(() => playAudio(scenario.steps[0].instruction), 500);
         }
       } catch (err: any) {
+        console.error('API call error:', err);
         setError(err.message);
         setAppState('idle');
       }
@@ -142,4 +179,3 @@ export default function Page() {
     />
   );
 }
-
