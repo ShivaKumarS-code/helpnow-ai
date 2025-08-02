@@ -33,17 +33,17 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
               <p className="text-sm text-gray-600 mb-4">This project was developed by us</p>
               
               <div className="space-y-2">
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="font-medium text-gray-800">Shiva Kumar S</p>
+                <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
+                  <p className="font-medium text-gray-800 dark:text-gray-100">Shiva Kumar S</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="font-medium text-gray-800">Ruthvik MT</p>
+                <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
+                  <p className="font-medium text-gray-800 dark:text-gray-100">Ruthvik MT</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="font-medium text-gray-800">Pratham R Shetty</p>
+                <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
+                  <p className="font-medium text-gray-800 dark:text-gray-100">Pratham R Shetty</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="font-medium text-gray-800">Sanjay UG</p>
+                <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
+                  <p className="font-medium text-gray-800 dark:text-gray-100">Sanjay UG</p>
                 </div>
               </div>
             </div>

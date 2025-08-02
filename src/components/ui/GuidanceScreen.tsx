@@ -13,15 +13,15 @@ interface AudioControlsProps {
 }
 
 const AudioControls = ({ instruction, audioState, onPlay, onStop }: AudioControlsProps) => (
-  <div className="flex items-center justify-center gap-2 mt-4 p-2 rounded-lg">
+  <div className="flex items-center justify-center gap-2 mt-4 p-2 bg-gray-800 dark:bg-gray-800 rounded-lg">
     <button
       onClick={onPlay}
       disabled={audioState === 'playing'}
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm border 
-        ${audioState === 'playing'
-          ? 'bg-transparent text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 cursor-not-allowed'
-          : 'bg-blue-500 text-white hover:bg-blue-600 border-transparent'}
-      `}
+      className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm ${
+        audioState === 'playing'
+          ? 'bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-200 cursor-not-allowed'
+          : 'bg-gray-700 text-white hover:bg-gray-900'
+      }`}
     >
       {audioState === 'playing' ? (
         <>🔊 Playing...</>
@@ -34,7 +34,7 @@ const AudioControls = ({ instruction, audioState, onPlay, onStop }: AudioControl
     </button>
     
     {audioState === 'playing' && (
-      <button onClick={onStop} className="flex items-center gap-2 px-3 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
+      <button onClick={onStop} className="flex items-center gap-2 px-3 py-2 bg-gray-600 text-white dark:text-gray-100 rounded-lg hover:bg-gray-700 transition-colors text-sm">
         <Pause className="w-4 h-4" />
         Stop
       </button>
@@ -70,7 +70,7 @@ export const GuidanceScreen = ({
   const currentStepData = scenario.steps[currentStep];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col p-4">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 flex flex-col p-4">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
@@ -119,8 +119,10 @@ export const GuidanceScreen = ({
           )}
         </div>
       </div>
-      <div className="bg-red-500 text-white p-4 rounded-lg mt-6 text-center">
-        <p className="font-bold">Remember: Call 108 for serious emergencies!</p>
+      <div className="relative mt-6 flex justify-center">
+        <p className="font-semibold text-white text-base sm:text-lg text-center bg-gradient-to-r from-red-900 via-red-500 to-red-900 px-4 py-2 rounded-full shadow-sm">
+          Remember: Call 108 for serious emergencies!
+        </p>
       </div>
     </div>
   );
