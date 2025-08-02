@@ -1,6 +1,7 @@
 'use client';
 
 import { GuideCard } from '@/components/GuideCard';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { type EmergencyScenario } from '@/utils/emergencyScenarios';
 import { Heart, Volume2, VolumeX, Play, Pause, RotateCcw } from 'lucide-react';
 
@@ -68,6 +69,10 @@ export const GuidanceScreen = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col p-4">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      
       <div className="text-center mb-6 pt-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">{scenario.title}</h1>
         <div className="flex items-center justify-center gap-4">
