@@ -92,7 +92,41 @@ export const GuideCard: React.FC<GuideCardProps> = ({
   const currentImageSrc = allImageUrls[currentUrlIndex];
 
   return (
-    <div className={`bg-white rounded-xl shadow-lg p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
+    <div className={`bg-white rounded-xl shadow-lg p-4 sm:p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
+      
+      {/* --- RESTORED: Visual Display Area --- */}
+      {allImageUrls.length > 0 ? (
+        <div className="mb-4 bg-gray-50 rounded-lg overflow-hidden flex justify-center items-center min-h-[200px] relative border border-gray-200">
+          
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+              <span className="ml-2 text-gray-600">Loading image...</span>
+            </div>
+          )}
+          
+          {imageError && (
+            <div className="flex flex-col items-center justify-center text-gray-500 p-8">
+              <ImageOff className="w-12 h-12 mb-2" />
+              <p className="text-sm">Visual guide unavailable</p>
+            </div>
+          )}
+          
+          {!imageError && currentImageSrc && (
+            <img 
+              key={`${currentImageSrc}-${step}`}
+              src={currentImageSrc}
+              alt={`Visual guide for: ${instruction}`} 
+              className={`w-full max-h-60 object-fill transition-opacity duration-300 ${
+                isLoading ? 'opacity-0' : 'opacity-100'
+              }`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          )}
+        </div>
+      ) : null}
+
       <div className="flex items-start gap-4 mb-4">
         {getIcon()}
         <div className="flex-1">
@@ -121,3 +155,4 @@ export const GuideCard: React.FC<GuideCardProps> = ({
     </div>
   );
 };
+
