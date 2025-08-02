@@ -117,6 +117,7 @@ export const GuideCard: React.FC<GuideCardProps> = ({
           )}
           
           {!imageError && currentImageSrc && (
+            // eslint-disable-next-line @next/next/no-img-element
             <img 
               key={`${currentImageSrc}-${step}`}
               src={currentImageSrc}
@@ -153,7 +154,7 @@ export const GuideCard: React.FC<GuideCardProps> = ({
         <button
           onClick={onPreviousStep}
           disabled={isFirstStep}
-          className="w-1/3 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="w-1/3 bg-gray-500 hover:bg-gray-600 text-black font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
           <ArrowLeft className="w-5 h-5" />
           PREVIOUS
