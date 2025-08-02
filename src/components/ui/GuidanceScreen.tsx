@@ -13,14 +13,14 @@ interface AudioControlsProps {
 }
 
 const AudioControls = ({ instruction, audioState, onPlay, onStop }: AudioControlsProps) => (
-  <div className="flex items-center justify-center gap-2 mt-4 p-2 bg-gray-100 rounded-lg">
+  <div className="flex items-center justify-center gap-2 mt-4 p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
     <button
       onClick={onPlay}
       disabled={audioState === 'playing'}
       className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm ${
         audioState === 'playing'
-          ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-          : 'bg-blue-500 text-white hover:bg-blue-600'
+          ? 'bg-gray-400 text-gray-600 dark:bg-gray-600 dark:text-gray-200 cursor-not-allowed'
+          : 'bg-gray-600 text-white hover:bg-gray-900'
       }`}
     >
       {audioState === 'playing' ? (
@@ -34,7 +34,7 @@ const AudioControls = ({ instruction, audioState, onPlay, onStop }: AudioControl
     </button>
     
     {audioState === 'playing' && (
-      <button onClick={onStop} className="flex items-center gap-2 px-3 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
+      <button onClick={onStop} className="flex items-center gap-2 px-3 py-2 bg-gray-500 text-white dark:text-gray-100 rounded-lg hover:bg-gray-600 transition-colors text-sm">
         <Pause className="w-4 h-4" />
         Stop
       </button>

@@ -51,7 +51,7 @@ export const DisclaimerModal: React.FC<DisclaimerModalProps> = ({ isOpen, onClos
           
           <button
             onClick={onClose}
-            className="w-full mt-6 bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+            className="w-full mt-6 bg-gray-700 hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700 text-yellow-500 font-bold py-3 px-6 rounded-lg transition-colors duration-200"
           >
             I Understand
           </button>
