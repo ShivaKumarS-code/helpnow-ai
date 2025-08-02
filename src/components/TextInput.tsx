@@ -36,7 +36,7 @@ export const TextInput: React.FC<TextInputProps> = ({ onSubmit, disabled = false
         <button
           type="submit"
           disabled={!inputText.trim() || disabled}
-          className="bg-red-500 hover:bg-red-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white p-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
+          className="bg-gray-700 hover:bg-gray-900 disabled:bg-gray-700 disabled:cursor-not-allowed text-white p-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
         >
           <Send className="w-5 h-5" />
         </button>
