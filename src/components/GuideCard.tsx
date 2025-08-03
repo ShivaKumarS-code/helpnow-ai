@@ -96,7 +96,7 @@ export const GuideCard: React.FC<GuideCardProps> = ({
   const currentImageSrc = allImageUrls[currentUrlIndex];
 
   return (
-    <div className={`bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
+    <div className={`bg-black rounded-xl shadow-lg p-4 sm:p-6 border-l-4 ${getCardBorder()} animate-fadeIn`}>
       
       {/* --- RESTORED: Visual Display Area --- */}
       {allImageUrls.length > 0 ? (

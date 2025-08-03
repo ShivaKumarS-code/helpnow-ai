@@ -34,16 +34,16 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
               
               <div className="space-y-2">
                 <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
-                  <p className="font-medium text-gray-800 dark:text-gray-100">Shiva Kumar S</p>
+                  <p className="font-medium text-gray-100">Shiva Kumar S</p>
                 </div>
                 <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
-                  <p className="font-medium text-gray-800 dark:text-gray-100">Ruthvik MT</p>
+                  <p className="font-medium text-gray-100">Ruthvik MT</p>
                 </div>
                 <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
-                  <p className="font-medium text-gray-800 dark:text-gray-100">Pratham R Shetty</p>
+                  <p className="font-medium text-gray-100">Pratham R Shetty</p>
                 </div>
                 <div className="bg-gray-400 dark:bg-gray-500 rounded-lg p-3">
-                  <p className="font-medium text-gray-800 dark:text-gray-100">Sanjay UG</p>
+                  <p className="font-medium text-gray-100">Sanjay UG</p>
                 </div>
               </div>
             </div>
