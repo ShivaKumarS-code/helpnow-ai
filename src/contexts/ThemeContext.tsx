@@ -13,67 +13,70 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme | null>(null);
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
-
+  
   useEffect(() => {
-    // Load theme from localStorage on mount
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
-      setTheme(savedTheme);
-    }
+    const savedTheme = (localStorage.getItem('theme') as Theme) || 'system';
+    setTheme(savedTheme);
   }, []);
-
+ 
   useEffect(() => {
-    // Save theme to localStorage
+    if (!theme) return;
+
     localStorage.setItem('theme', theme);
 
-    // Determine resolved theme
-    let resolved: 'light' | 'dark' = 'light';
-    
-    if (theme === 'system') {
-      resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    } else {
-      resolved = theme;
-    }
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const resolved =
+      theme === 'dark' || (theme === 'system' && systemPrefersDark) ? 'dark' : 'light';
 
     setResolvedTheme(resolved);
-
-    // Apply theme to document
     document.documentElement.setAttribute('data-theme', resolved);
+    document.documentElement.style.setProperty(
+      '--background',
+      resolved === 'dark' ? '#0a0a0a' : '#ffffff'
+    );
+    document.documentElement.style.setProperty(
+      '--foreground',
+      resolved === 'dark' ? '#ededed' : '#171717'
+    );
     
-    // Update CSS custom properties
     if (resolved === 'dark') {
-      document.documentElement.style.setProperty('--background', '#0a0a0a');
-      document.documentElement.style.setProperty('--foreground', '#ededed');
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.style.setProperty('--background', '#ffffff');
-      document.documentElement.style.setProperty('--foreground', '#171717');
+      document.documentElement.classList.remove('dark');
     }
   }, [theme]);
-
+ 
   useEffect(() => {
-    // Listen for system theme changes when in system mode
-    if (theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleChange = () => {
-        const resolved = mediaQuery.matches ? 'dark' : 'light';
-        setResolvedTheme(resolved);
-        document.documentElement.setAttribute('data-theme', resolved);
-        
-        if (resolved === 'dark') {
-          document.documentElement.style.setProperty('--background', '#0a0a0a');
-          document.documentElement.style.setProperty('--foreground', '#ededed');
-        } else {
-          document.documentElement.style.setProperty('--background', '#ffffff');
-          document.documentElement.style.setProperty('--foreground', '#171717');
-        }
-      };
+    if (theme !== 'system') return;
 
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
-    }
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => {
+      const newResolved = mediaQuery.matches ? 'dark' : 'light';
+      setResolvedTheme(newResolved);
+      document.documentElement.setAttribute('data-theme', newResolved);
+      document.documentElement.style.setProperty(
+        '--background',
+        newResolved === 'dark' ? '#0a0a0a' : '#ffffff'
+      );
+      document.documentElement.style.setProperty(
+        '--foreground',
+        newResolved === 'dark' ? '#ededed' : '#171717'
+      );
+
+      if (newResolved === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme]);
+  
+  if (!theme) return null;
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>
@@ -84,7 +87,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 export function useTheme() {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
