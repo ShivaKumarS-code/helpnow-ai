@@ -77,7 +77,7 @@ export const HomeScreen = ({
             : 'Tap to start the emergency guide'}
         </p>
         {appState === 'processing' && finalTranscript && (
-          <p className="text-sm text-gray-500 italic">"{finalTranscript}"</p>
+          <p className="text-sm text-gray-500 italic">{`"${finalTranscript}"`}</p>
         )}
       </div>
 

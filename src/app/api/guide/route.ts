@@ -13,6 +13,11 @@ function generateImageUrl(instruction: string, index: number): string {
   return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=400&height=300&nologo=true&seed=${Date.now() + index}`;
 }
 
+interface Step {
+  instruction: string;
+  type: "action" | "warning" | "info";
+}
+
 // This is the main handler for POST requests to /api/guide
 export async function POST(request: Request) {
   try {
@@ -73,14 +78,14 @@ export async function POST(request: Request) {
     try {
       const cleanedResponse = llmResponseText.replace(/```json/g, '').replace(/```/g, '').trim();
       scenario = JSON.parse(cleanedResponse);
-    } catch (parseError) {
+    } catch {
       console.error("Failed to parse JSON from LLM response:", llmResponseText);
       throw new Error("The AI returned an invalid response format.");
     }
     
     // --- FIXED: Ensure image URLs are definitely added to each step ---
     if (scenario.steps && Array.isArray(scenario.steps)) {
-        scenario.steps = scenario.steps.map((step: any, index: number) => {
+        scenario.steps = scenario.steps.map((step: Step, index: number) => {
             // Generate image URL
             const visualUrl = generateImageUrl(step.instruction, index);
             
@@ -105,10 +110,11 @@ export async function POST(request: Request) {
     // 5. Return the structured JSON response to the frontend
     return NextResponse.json(scenario);
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('API Error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to get a response from the AI.';
     return NextResponse.json({ 
-      error: error.message || 'Failed to get a response from the AI.',
+      error: message,
       timestamp: new Date().toISOString()
     }, { status: 500 });
   }

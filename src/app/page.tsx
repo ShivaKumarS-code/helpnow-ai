@@ -110,9 +110,10 @@ export default function Page() {
         if (audioEnabled && scenario.steps && scenario.steps.length > 0) {
           setTimeout(() => playAudio(scenario.steps[0].instruction), 500);
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error('API call error:', err);
-        setError(err.message);
+        const message = err instanceof Error ? err.message : 'An unknown error occurred.';
+        setError(message);
         setAppState('idle');
       }
     };
@@ -121,6 +122,15 @@ export default function Page() {
       processApiCall();
     }
   }, [finalTranscript, audioEnabled, playAudio]);
+
+  const handleStartOver = useCallback(() => {
+    stopAudio();
+    setAppState('idle');
+    setCurrentScenario(null);
+    setCurrentStep(0);
+    setFinalTranscript('');
+    setError(null);
+  }, [stopAudio]);
 
   const handleEmergencyButtonClick = () => {
     if (appState === 'idle') {
@@ -143,7 +153,7 @@ export default function Page() {
     } else {
       handleStartOver();
     }
-  }, [currentScenario, currentStep, audioEnabled, playAudio, stopAudio]);
+  }, [currentScenario, currentStep, audioEnabled, playAudio, stopAudio, handleStartOver]);
 
   const handlePreviousStep = useCallback(() => {
     if (!currentScenario) return;
@@ -156,15 +166,6 @@ export default function Page() {
       }
     }
   }, [currentScenario, currentStep, audioEnabled, playAudio, stopAudio]);
-
-  const handleStartOver = useCallback(() => {
-    stopAudio();
-    setAppState('idle');
-    setCurrentScenario(null);
-    setCurrentStep(0);
-    setFinalTranscript('');
-    setError(null);
-  }, [stopAudio]);
 
   if (appState === 'guidance' && currentScenario) {
     return (

@@ -3,16 +3,15 @@
 import { GuideCard } from '@/components/GuideCard';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { type EmergencyScenario } from '@/utils/emergencyScenarios';
-import { Heart, Volume2, VolumeX, Play, Pause, RotateCcw } from 'lucide-react';
+import { Volume2, VolumeX, Play, Pause, RotateCcw } from 'lucide-react';
 
 interface AudioControlsProps {
-  instruction: string;
   audioState: 'idle' | 'playing' | 'paused';
   onPlay: () => void;
   onStop: () => void;
 }
 
-const AudioControls = ({ instruction, audioState, onPlay, onStop }: AudioControlsProps) => (
+const AudioControls = ({ audioState, onPlay, onStop }: AudioControlsProps) => (
   <div className="flex items-center justify-center gap-2 mt-4 p-2 rounded-lg">
     <button
       onClick={onPlay}
@@ -111,7 +110,6 @@ export const GuidanceScreen = ({
           />
           {audioEnabled && (
             <AudioControls
-              instruction={currentStepData.instruction}
               audioState={audioState}
               onPlay={() => onPlayAudio(currentStepData.instruction)}
               onStop={onStopAudio}

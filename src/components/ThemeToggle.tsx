@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Sun, Moon, Monitor, ChevronDown, Check } from 'lucide-react';
+import { Sun, Moon, Monitor, Check } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export const ThemeToggle = () => {

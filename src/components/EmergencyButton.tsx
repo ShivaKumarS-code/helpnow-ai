@@ -1,6 +1,6 @@
 'use client'
 
-import { Heart, Mic, Loader2 } from 'lucide-react';
+import { Mic, Loader2 } from 'lucide-react';
 
 interface EmergencyButtonProps {
   state: 'idle' | 'listening' | 'processing';
