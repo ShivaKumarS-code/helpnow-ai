@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/AI-Powered-FF6B6B?style=for-the-badge&logo=openai&logoColor=white" alt="AI Powered">
 </p>
 
-**HelpNow AI** is a life-saving web application that provides instant, step-by-step guidance for medical emergencies. Using advanced speech recognition and AI-powered responses, it delivers clear instructions with visual aids to help users handle critical situations when every second counts.
+**HelpNow AI** is a life-saving web application that provides instant, step-by-step guidance for medical emergencies. Using advanced speech recognition and AI-powered responses, it delivers clear instructions with visual aids to help users and also handle critical situations when every second counts.
 
 ---
 
